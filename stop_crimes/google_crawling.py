@@ -10,8 +10,6 @@ import csv
 # https://gist.github.com/aclisp/0c2965af80816bd332b7096a89908ef6 참고함
 # 너무 로딩이 안되니까 youtube data api v3 를 써야겠다.
 def google_crawling(search_word):
-    youtube_data = [] #데이터 저장 리스트
-
 
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument("--incognito") #시크릿창으로 열기
@@ -44,10 +42,12 @@ def google_crawling(search_word):
     textlist=[]
     urls=[]
 
-    for i in range(0,len(titles)-1):
+    for i in range(0,len(titles)):
         item = driver.find_elements_by_css_selector('div.r > a')
+        print(len(item),len(titles))
         urls.append(item[i].get_attribute('href'))
         item[i].click()
+
         driver.find_element_by_tag_name('body').send_keys(Keys.END)
         time.sleep(4)
 
@@ -56,10 +56,12 @@ def google_crawling(search_word):
         text = soup.find("body").text
         textcmt = re.sub('[/\r|\n/g]', '', text)
         textcmt = textcmt.split(' ')
-        textlist.append(textcmt)
-        print(textlist)
-
-        driver.back()
+        if textcmt[0:3] == ['접근성', '링크주요', '콘텐츠로']:
+            continue
+        else:
+            textlist.append(textcmt)
+            print(textlist)
+            driver.back()
     time_now = time.strftime('%Y-%m-%d', time.localtime(time.time()))
     textcsv = pd.DataFrame([pd.Series(text) for text in textlist ])
     textcsv.to_csv(f'{time_now} google_data.csv', index=0, encoding="utf-8")
@@ -74,4 +76,4 @@ def google_crawling(search_word):
 
     csvfile.close()
 
-google_crawling("abc")
+google_crawling("자영업자")
