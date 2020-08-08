@@ -14,8 +14,6 @@ class Scheduler:
     def __del__(self):
         self.shutdown()
 
-    def shutdown(self):
-        self.sched.shutdown()
 
     def kill_scheduler(self, job_id):
         try:
