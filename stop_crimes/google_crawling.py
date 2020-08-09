@@ -43,25 +43,28 @@ def google_crawling(search_word):
     urls=[]
 
     for i in range(0,len(titles)):
-        item = driver.find_elements_by_css_selector('div.r > a')
-        print(len(item),len(titles))
-        urls.append(item[i].get_attribute('href'))
-        item[i].click()
+        try:
+            item = driver.find_elements_by_css_selector('div.r > a')
+            print(len(item),len(titles))
+            urls.append(item[i].get_attribute('href'))
+            item[i].click()
 
-        driver.find_element_by_tag_name('body').send_keys(Keys.END)
-        time.sleep(4)
+            driver.find_element_by_tag_name('body').send_keys(Keys.END)
+            time.sleep(4)
 
-        page = driver.page_source
-        soup = BeautifulSoup(page, 'lxml')
-        text = soup.find("body").text
-        textcmt = re.sub('[/\r|\n/g]', '', text)
-        textcmt = textcmt.split(' ')
-        if textcmt[0:3] == ['접근성', '링크주요', '콘텐츠로']:
+            page = driver.page_source
+            soup = BeautifulSoup(page, 'lxml')
+            text = soup.find("body").text
+            textcmt = re.sub('[/\r|\n/g]', '', text)
+            textcmt = textcmt.split(' ')
+            if textcmt[0:3] == ['접근성', '링크주요', '콘텐츠로']:
+                continue
+            else:
+                textlist.append(textcmt)
+                print(textlist)
+                driver.back()
+        except IndexError:
             continue
-        else:
-            textlist.append(textcmt)
-            print(textlist)
-            driver.back()
     time_now = time.strftime('%Y-%m-%d', time.localtime(time.time()))
     textcsv = pd.DataFrame([pd.Series(text) for text in textlist ])
     textcsv.to_csv(f'{time_now} google_data.csv', index=0, encoding="utf-8")
@@ -76,4 +79,4 @@ def google_crawling(search_word):
 
     csvfile.close()
 
-google_crawling("자영업자")
+google_crawling("자영 판매")
