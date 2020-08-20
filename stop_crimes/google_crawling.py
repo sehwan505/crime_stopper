@@ -4,12 +4,12 @@ import time
 from bs4 import BeautifulSoup
 import re
 import pandas as pd
-import numpy as np
 import csv
+import read_csv
 
 # https://gist.github.com/aclisp/0c2965af80816bd332b7096a89908ef6 참고함
 # 너무 로딩이 안되니까 youtube data api v3 를 써야겠다.
-def google_crawling(search_word):
+def google_crawling(query,search_words):
 
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument("--incognito") #시크릿창으로 열기
@@ -24,7 +24,7 @@ def google_crawling(search_word):
 
     search = driver.find_element_by_css_selector("#tsf > div:nth-child(2) > div.A8SBwf > div.RNNXgb > div > div.a4bIc > input")
     search.click()
-    search.send_keys(search_word)
+    search.send_keys(query)
     search.submit()
     time.sleep(5)
 
@@ -79,4 +79,6 @@ def google_crawling(search_word):
 
     csvfile.close()
 
-google_crawling("자영 판매")
+    countlist = read_csv.find_value(f"{time_now}", search_words)
+    return countlist
+

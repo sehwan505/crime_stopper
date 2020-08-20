@@ -2,6 +2,7 @@ from apscheduler.jobstores.base import JobLookupError
 from apscheduler.schedulers.background import BackgroundScheduler
 import time
 from google_crawling import google_crawling
+from twitter_stopper2 import *
 
 
 
@@ -30,16 +31,16 @@ class Scheduler:
                                                  hour='0-23', second='*/2',
                                                  id=job_id, args=(type, job_id))
 
-
-if __name__ == '__main__':
-    scheduler = Scheduler()
-    scheduler.scheduler('interval', "2")
-    count = 0
-    while True:
-        print("Running main process")
-        time.sleep(86400)
-        count += 1
-        if count == 7:
-            scheduler.kill_scheduler("2")
-            print("Kill interval Scheduler")
-            break
+#
+# if __name__ == '__main__':
+#     scheduler = Scheduler()
+#     scheduler.scheduler('interval', "2")
+#     count = 0
+#     while True:
+#         print("Running main process")
+#         time.sleep(86400)
+#         count += 1
+#         if count == 7:
+#             scheduler.kill_scheduler("2")
+#             print("Kill interval Scheduler")
+#             break

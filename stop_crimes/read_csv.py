@@ -1,5 +1,4 @@
 import pandas as pd
-import csv
 
 def find_value(date,values):
     data = pd.read_csv(f"{date} google_data.csv", encoding='utf-8')
@@ -19,10 +18,6 @@ def find_value(date,values):
 
     with open('urls.csv', 'a') as f:
         count_list.to_csv(f,index=0)
-    return count_list, data
-
-
-count_list,data = find_value("2020-08-09",["자영","빅데이터","이","이란"])
-sum = count_list.sum(axis=0)
+    return count_list
 
 
