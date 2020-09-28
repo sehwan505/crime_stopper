@@ -26,14 +26,13 @@ def crawling_twitter(query, search_words):
     #         return find_value_json(date, search_words, live=False)
 
 def crawling_twitter_live(query, search_words, max_count=500):
-    query = [query,"자영판매","영상판매"]
-    output_file_name = "stream_result.json"
+    query = [query,"자영판매","영상판매","변녀","영상교환"]
+    output_file_name = "stream_result2.json"
     with open(output_file_name, "a+", encoding="utf-8") as output_file:
         stream = twitter_api.GetStreamFilter(track=query)
         count = 0
         while True:
             for tweets in stream:
-
                 print(tweets)
                 tweet_published = datetime.datetime.strptime(tweets['created_at'],'%a %b %d %H:%M:%S +0000 %Y')
                 tweet_published = tweet_published + datetime.timedelta(hours=+9)
