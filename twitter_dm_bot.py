@@ -4,14 +4,15 @@ Consumer_Key = "tS0tDeWXgLfHJRzNYcW6oTMl3"#Applications Setting의 Consumer Key(
 Consumer_Secret = "ZWHsgPsHLDpwIlqwINtETjvOS3SU7SSWAVhhvoFc8mkjaHNs4v"#Applications Setting의 Consumer Secret(API Secret)
 
 auth = tweepy.OAuthHandler(Consumer_Key,Consumer_Secret)
-Access_Token = "1294545707714539520-nzApykoUqXu4LxSU2U4YwIUyywgEcr"#위에서 생성한 Access Token
-Access_Token_Secret = "1ZZxqKEr0NDB6ZJneWwT2WnSEwzFinmkqIAMiAmANaAxL"#위에서 생성한 Access Token Secret
+Access_Token = "1294545707714539520-nzApykoUqXu4LxSU2U4YwIUyywgEcr"#위에서 생성한 Access Token Secret
+Access_Token_Secret = "1ZZxqKEr0NDB6ZJneWwT2WnSEwzFinmkqIAMiAmANaAxL"
 auth.set_access_token(Access_Token,Access_Token_Secret)
 api = tweepy.API(auth)
 def twitter_dm_bot(count_list,values):
     ans = count_list[values].sum(axis=1) >= 1
-    id_list=pd.read_csv("twitter_id3.csv")
-    for i in count_list[ans]["user"]:
+    id_list=pd.read_csv("twitter_id4.csv")
+    for i in count_list[ans]["user"]:#위에서 생성한 Access Token
+
 
         try:
             id = i["id"]
@@ -26,5 +27,5 @@ def twitter_dm_bot(count_list,values):
         except:
             continue
     print(id_list)
-    id_list.to_csv("twitter_id3.csv", index=0)
+    id_list.to_csv("twitter_id4.csv", index=0)
     return 0

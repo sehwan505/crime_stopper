@@ -27,7 +27,7 @@ def crawling_twitter(query, search_words):
 
 def crawling_twitter_live(query, search_words, max_count=500):
     query = [query,"자영판매","영상판매","변녀","영상교환"]
-    output_file_name = "stream_result2.json"
+    output_file_name = "stream_result3.json"
     with open(output_file_name, "a+", encoding="utf-8") as output_file:
         stream = twitter_api.GetStreamFilter(track=query)
         count = 0
