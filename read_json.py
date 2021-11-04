@@ -1,5 +1,5 @@
 import pandas as pd
-from twitter_dm_bot import twitter_dm_bot
+from send_twitter_dm import twitter_dm_bot
 import json
 
 
@@ -23,7 +23,7 @@ def find_value_json(date, values, live=True):
 
     date = date[:13]
     count_list.to_csv(f"data_twitter_google/{date} twitter_data.csv", index=0)
-    twitter_dm_bot(count_list,values)
+    twitter_dm_bot(count_list, values)
     return 0
 
 # find_value_json("2020-09-26 11:59:51",["암"])
