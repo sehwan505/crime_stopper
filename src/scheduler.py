@@ -3,8 +3,6 @@ from apscheduler.schedulers.background import BackgroundScheduler
 import time
 from twitter_stopper import *
 
-
-
 class Scheduler:
     def __init__(self):
         self.sched = BackgroundScheduler()
@@ -20,7 +18,7 @@ class Scheduler:
     def scheduler(self, type, job_id):
         print("{type} Scheduler Start".format(type=type))
         if type == 'interval':
-            self.sched.add_job(crawling_twitter_live, type, minutes=45 ,id=job_id, args=["섹트",["고딩","중딩","17","16","15","14","13","04","03","05","06","07","판매","노예","교복","자영","자영판매","합성","거래","자위영상","팔아요"]])
+            self.sched.add_job(crawling_twitter_live, type, minutes=20 ,id=job_id, args=["섹트",["고딩","중딩","17","16","15","14","13","04","03","05","06","07","판매","노예","교복","자영","자영판매","합성","거래","자위영상","팔아요"]])
         elif type == 'cron':
             self.sched.add_job(self.hello, type, day_of_week='-fri',
                                                  hour='0-23', second='*/2',
@@ -30,18 +28,18 @@ class Scheduler:
     스케줄러를 실행하는 함수
 """
 def run_scheduler():
-    # scheduler = Scheduler()
-    # scheduler.scheduler('interval', "2")
+    scheduler = Scheduler()
+    scheduler.scheduler('interval', "2")
     crawling_twitter_live("섹트",
                           ["고딩", "중딩", "17", "16", "15", "14", "13", "04", "03", "05", "06", "07", "판매", "노예", "교복",
                            "자영", "자영판매", "영상판매", "합성", "거래", "자위영상", "팔아요", "팜", "조건만남", "자영판매","영상판매","영상교환"])
-    # count = 0
-    # while True:
-    #     time.sleep(1)
-    #     count += 1
-    #     if count % 10 == 0:
-    #         print("running")
-    #     if count == 32000:
-    #         scheduler.kill_scheduler("2")
-    #         print("Kill interval Scheduler")
-    #         break
+    count = 0
+    while True:
+        time.sleep(1)
+        count += 1
+        if count % 10 == 0:
+            print("running")
+        if count == 32000:
+            scheduler.kill_scheduler("2")
+            print("Kill interval Scheduler")
+            break

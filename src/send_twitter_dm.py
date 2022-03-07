@@ -2,13 +2,6 @@ import tweepy
 import pandas as pd
 import json
 
-with open('config.json', 'r') as f: 
-    config = json.load(f) 
-
-auth = tweepy.OAuthHandler(config["Consumer_Key"], config["Consumer_Secret"])
-auth.set_access_token(config["Access_Token"], config["Access_Token_Secret"])
-api = tweepy.API(auth)
-
 """
     Args:
         date : 오늘 날짜
@@ -17,7 +10,7 @@ api = tweepy.API(auth)
     Returns:
         null 반환
 """
-def find_value_json(date, values):
+def find_value_json(api, date, values):
     data = pd.read_json("stream_result.json", lines=True)
     data_index = data[data["created_at"].astype("str") == date].index.values[0]
     data = data.iloc[data_index:,:]
@@ -30,7 +23,7 @@ def find_value_json(date, values):
 
     date = date[:13]
     count_list.to_csv(f"data_twitter/{date} twitter_data.csv", index=0)
-    twitter_dm_bot(count_list,values)
+    twitter_dm_bot(api, count_list, values)
     return 0
 
 """ stopword에 걸리는 게시글을 올린 사용자에게 warning dm 보냄
@@ -41,7 +34,7 @@ def find_value_json(date, values):
     Returns:
         null 반환
 """
-def twitter_dm_bot(count_list,values):
+def twitter_dm_bot(api, count_list,values):
     ans = count_list[values].sum(axis=1) >= 1
     id_list=pd.DataFrame()#pd.read_csv("twitter_id.csv")
     for i in count_list[ans]["user"]:

@@ -26,7 +26,7 @@ def crawling_twitter_live(query, stop_words, max_count=500):
     date = None
     with open(output_file_name, "a+", encoding="utf-8") as output_file:
         while(True):
-            for tweets in tweepy.Cursor(api.search_tweets, q=query, count=10, result_type="recent").items(10):
+            for tweets in tweepy.Cursor(api.search_tweets, q=query, count=50, result_type="recent").items(10):
                 print(tweets)
                 tweets = tweets._json
                 tweet_published = datetime.datetime.strptime(tweets['created_at'],'%a %b %d %H:%M:%S +0000 %Y')
@@ -38,5 +38,5 @@ def crawling_twitter_live(query, stop_words, max_count=500):
                 tweet = json.dumps(tweets, ensure_ascii=False)
                 tweet= tweet.encode('utf-8', 'ignore').decode('utf-8') #이모티콘 제거
                 print(tweet, file=output_file, flush=True)
-            return find_value_json(date,stop_words)
+            return find_value_json(api, date, stop_words)
 
