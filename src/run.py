@@ -16,4 +16,4 @@ if __name__ ==  "__main__":
                 print("검색어:", search_words)
                 break
             search_words.append(a)
-    run_scheduler()
+    run_scheduler(search_words)

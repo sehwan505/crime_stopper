@@ -2,7 +2,7 @@ src/data_twitter/*
 src/config.json
 src/stream_result.json
 src/twitter_id.csv
-capture/
+capture/*
 개발 결과 보고서_stopper.docx
 기획서_stopper.docx
 twitter_analysis.ipynb
