@@ -2,6 +2,8 @@
 
 ### how to run
 ```
+# download required libs
+pip install requirements.txt
 # add config.json file under 'src' directory and insert your api keys 
 python run.py
 ```
